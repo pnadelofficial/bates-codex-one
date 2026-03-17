@@ -249,7 +249,7 @@
     <div class="site-wrapper">
       <div class="masthead-inner">
         <span class="masthead-eyebrow">A Digital Collection</span>
-        <div class="site-title"><a href="/index.html">Bates Codex One</a></div>
+        <div class="site-title"><a href="{{ base_url }}/index.html">Bates Codex One</a></div>
         <!-- <div class="masthead-rule">
           <span class="masthead-rule-ornament">❧</span>
         </div> -->
@@ -257,15 +257,15 @@
 
       <nav class="site-nav" aria-label="Primary navigation">
         <div class="nav-inner">
-          <a href="/index.html"
+          <a href="{{ base_url }}/index.html"
             {% if active_page == 'home' %}class="active"{% endif %}>
             Home
           </a>
-          <a href="/browse.html"
+          <a href="{{ base_url }}/browse.html"
             {% if active_page == 'browse' %}class="active"{% endif %}>
             Browse Collection
           </a>
-          <a href="/about.html"
+          <a href="{{ base_url }}/about.html"
             {% if active_page == 'about' %}class="active"{% endif %}>
             About
           </a>

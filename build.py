@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
+BASE_URL = "/bates-codex-one"
 CONTENT_FILE = Path("content/items.json")
 TEMPLATES_DIR = Path("templates")
 STATIC_DIR = Path("static")
@@ -27,14 +28,14 @@ def copy_static():
 
 def build_index(env: Environment, items: list[dict]):
     template = env.get_template("index.html")
-    html = template.render(items=items, active_page="home")
+    html = template.render(items=items, active_page="home", base_url=BASE_URL)
     out = OUTPUT_DIR / "index.html"
     out.write_text(html, encoding="utf-8")
     print(f"  Built {out}")
 
 def build_browse(env: Environment, items: list[dict]):
     template = env.get_template("browse.html")
-    html = template.render(items=items, active_page="browse")
+    html = template.render(items=items, active_page="browse", base_url=BASE_URL)
     out = OUTPUT_DIR / "browse.html"
     out.write_text(html, encoding="utf-8")
     print(f"  Built {out}")
@@ -50,6 +51,7 @@ def build_item_pages(env: Environment, items: list[dict]):
             prev_item=items[i - 1] if i > 0 else None,
             next_item=items[i + 1] if i < len(items) - 1 else None,
             active_page="browse",
+            base_url=BASE_URL,
         )
         out = out_dir / f"{item['id']}.html"
         out.write_text(html, encoding="utf-8")
@@ -58,7 +60,7 @@ def build_item_pages(env: Environment, items: list[dict]):
 
 # def build_about(env: Environment):
 #     template = env.get_template("about.html")
-#     html = template.render(active_page="about")
+#     html = template.render(active_page="about", base_url=BASE_URL)
 #     out = OUTPUT_DIR / "about.html"
 #     out.write_text(html, encoding="utf-8")
 #     print(f"  Built {out}")

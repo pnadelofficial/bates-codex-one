@@ -156,13 +156,13 @@
 <div class="item-list" id="item-list">
   {% for item in items %}
   <a class="item-row"
-     href="/items/{{ item.id }}.html"
+     href="{{ base_url }}/items/{{ item.id }}.html"
      data-kind="{{ item.kind | default('') }}">
  
     {% if item.filename %}
       <img
         class="item-thumb"
-        src="/static/images/{{ item.filename }}"
+        src="{{ base_url }}/static/images/{{ item.filename }}"
         alt="{{ item.title }}"
         loading="lazy">
     {% else %}

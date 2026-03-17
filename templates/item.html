@@ -168,9 +168,9 @@
  
 <!-- Breadcrumb -->
 <nav class="breadcrumb" aria-label="Breadcrumb">
-  <a href="/index.html">Home</a>
+  <a href="{{ base_url }}/index.html">Home</a>
   <span class="breadcrumb-sep">›</span>
-  <a href="/browse.html">Collection</a>
+  <a href="{{ base_url }}/browse.html">Collection</a>
   <span class="breadcrumb-sep">›</span>
   <span>{{ item.title }}</span>
 </nav>
@@ -180,7 +180,7 @@
 <div class="item-image-wrap">
   <img
     class="item-image"
-    src="/static/images/{{ item.filename }}"
+    src="{{ base_url }}/static/images/{{ item.filename }}"
     alt="{{ item.title }}"
     id="main-image"
     title="Click to enlarge">
@@ -224,13 +224,13 @@
 <!-- Prev / Next -->
 <div class="item-nav">
   {% if prev_item %}
-    <a href="/items/{{ prev_item.id }}.html">← {{ prev_item.title }}</a>
+    <a href="{{ base_url }}/items/{{ prev_item.id }}.html">← {{ prev_item.title }}</a>
   {% else %}
     <span class="nav-placeholder">—</span>
   {% endif %}
  
   {% if next_item %}
-    <a href="/items/{{ next_item.id }}.html">{{ next_item.title }} →</a>
+    <a href="{{ base_url }}/items/{{ next_item.id }}.html">{{ next_item.title }} →</a>
   {% else %}
     <span class="nav-placeholder">—</span>
   {% endif %}
