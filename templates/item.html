@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+ 
+{% block title %}{{ item.title }}{% endblock %}
+{% block description %}{{ item.title }}{% if item.kind %} — {{ item.kind }}{% endif %}{% endblock %}
+ 
+{% block extra_head %}
+<style>
+  /* ─── Breadcrumb ─────────────────────────────────────────────── */
+  .breadcrumb {
+    font-family: var(--font-small);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .breadcrumb a { color: var(--ink-faint); }
+  .breadcrumb a:hover { color: var(--rust); text-decoration: none; }
+  .breadcrumb-sep { color: var(--rule); }
+ 
+  /* ─── Item Image ─────────────────────────────────────────────── */
+  .item-image-wrap {
+    width: 100%;
+    margin-bottom: 2.25rem;
+    border: 1px solid var(--rule);
+    background: var(--parchment);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+ 
+  .item-image {
+    width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    display: block;
+    filter: sepia(10%);
+    cursor: zoom-in;
+    transition: filter 0.2s;
+  }
+  .item-image:hover { filter: sepia(0%); }
+ 
+  /* ─── Item Detail Layout ─────────────────────────────────────── */
+  .item-detail {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 3rem;
+    align-items: start;
+  }
+ 
+  @media (max-width: 700px) {
+    .item-detail { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+ 
+  /* ─── Item Body (left) ───────────────────────────────────────── */
+  .item-title-heading {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 1.5rem;
+  }
+ 
+  .item-description {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink-light);
+  }
+ 
+  /* ─── Item Sidebar (right) ───────────────────────────────────── */
+  .item-sidebar {
+    border: 1px solid var(--rule);
+    padding: 1.25rem;
+    background: var(--parchment);
+  }
+ 
+  .sidebar-heading {
+    font-family: var(--font-small);
+    font-size: 0.63rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+ 
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+ 
+  .meta-table tr + tr td { padding-top: 0.6rem; }
+ 
+  .meta-label {
+    font-family: var(--font-small);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    vertical-align: top;
+    padding-right: 1rem;
+    white-space: nowrap;
+    width: 1%;
+  }
+ 
+  .meta-value {
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+ 
+  /* ─── Lightbox ───────────────────────────────────────────────── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 18, 14, 0.92);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+ 
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+ 
+  .lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    background: none;
+    border: none;
+    transition: color 0.15s;
+  }
+  .lightbox-close:hover { color: #fff; }
+ 
+  /* ─── Prev / Next Nav ────────────────────────────────────────── */
+  .item-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-small);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+ 
+  .item-nav a { color: var(--ink-faint); }
+  .item-nav a:hover { color: var(--rust); text-decoration: none; }
+  .item-nav .nav-placeholder { visibility: hidden; }
+</style>
+{% endblock %}
+ 
+{% block content %}
+ 
+<!-- Breadcrumb -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/index.html">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="/browse.html">Collection</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>{{ item.title }}</span>
+</nav>
+ 
+<!-- Image -->
+{% if item.filename %}
+<div class="item-image-wrap">
+  <img
+    class="item-image"
+    src="/static/images/{{ item.filename }}"
+    alt="{{ item.title }}"
+    id="main-image"
+    title="Click to enlarge">
+</div>
+{% endif %}
+ 
+<!-- Detail: title + description (left) and metadata sidebar (right) -->
+<div class="item-detail">
+  <div class="item-body">
+    <h1 class="item-title-heading">{{ item.title }}</h1>
+    {% if item.description %}
+    <div class="item-description">{{ item.description }}</div>
+    {% endif %}
+  </div>
+ 
+  <aside class="item-sidebar">
+    <div class="sidebar-heading">Record</div>
+    <table class="meta-table">
+      {% if item.id %}
+      <tr>
+        <td class="meta-label">ID</td>
+        <td class="meta-value">{{ item.id }}</td>
+      </tr>
+      {% endif %}
+      {% if item.kind %}
+      <tr>
+        <td class="meta-label">Kind</td>
+        <td class="meta-value">{{ item.kind }}</td>
+      </tr>
+      {% endif %}
+      {% if item.filename %}
+      <tr>
+        <td class="meta-label">File</td>
+        <td class="meta-value" style="word-break: break-all; font-size: 0.8rem;">{{ item.filename }}</td>
+      </tr>
+      {% endif %}
+    </table>
+  </aside>
+</div>
+ 
+<!-- Prev / Next -->
+<div class="item-nav">
+  {% if prev_item %}
+    <a href="/items/{{ prev_item.id }}.html">← {{ prev_item.title }}</a>
+  {% else %}
+    <span class="nav-placeholder">—</span>
+  {% endif %}
+ 
+  {% if next_item %}
+    <a href="/items/{{ next_item.id }}.html">{{ next_item.title }} →</a>
+  {% else %}
+    <span class="nav-placeholder">—</span>
+  {% endif %}
+</div>
+ 
+<!-- Lightbox overlay -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image enlarged">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+  <img src="" alt="{{ item.title }}" id="lightbox-img">
+</div>
+ 
+{% endblock %}
+ 
+{% block extra_scripts %}
+<script>
+  const mainImg   = document.getElementById('main-image');
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lightbox-img');
+  const lbClose   = document.getElementById('lightbox-close');
+ 
+  if (mainImg) {
+    mainImg.addEventListener('click', () => {
+      lbImg.src = mainImg.src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+ 
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+ 
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  lbClose.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+{% endblock %}

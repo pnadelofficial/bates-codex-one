@@ -1,0 +1,762 @@
+[
+  {
+    "title": "Page 1 - Recto",
+    "base_name": "1r",
+    "id": "0000",
+    "filename": "1r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 4 - Verso",
+    "base_name": "4v",
+    "id": "0001",
+    "filename": "4v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 8 - Verso",
+    "base_name": "8v",
+    "id": "0002",
+    "filename": "8v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 9 - Verso",
+    "base_name": "9v",
+    "id": "0003",
+    "filename": "9v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 11 - Recto",
+    "base_name": "11r",
+    "id": "0004",
+    "filename": "11r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 12 - Verso",
+    "base_name": "12v",
+    "id": "0005",
+    "filename": "12v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 13 - Verso",
+    "base_name": "13v",
+    "id": "0006",
+    "filename": "13v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 15 - Recto",
+    "base_name": "15r",
+    "id": "0007",
+    "filename": "15r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 16 - Verso",
+    "base_name": "16v",
+    "id": "0008",
+    "filename": "16v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 18 - Recto",
+    "base_name": "18r",
+    "id": "0009",
+    "filename": "18r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 19 - Verso",
+    "base_name": "19v",
+    "id": "0010",
+    "filename": "19v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 19 - Recto",
+    "base_name": "19r",
+    "id": "0011",
+    "filename": "19r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 20 - Verso",
+    "base_name": "20v",
+    "id": "0012",
+    "filename": "20v..JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 23 - Recto",
+    "base_name": "23r",
+    "id": "0013",
+    "filename": "23r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 25 - Verso",
+    "base_name": "25v",
+    "id": "0014",
+    "filename": "25v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 28 - Recto",
+    "base_name": "28r",
+    "id": "0015",
+    "filename": "28r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 30 - Recto",
+    "base_name": "30r",
+    "id": "0016",
+    "filename": "30r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 32 - Verso",
+    "base_name": "32v",
+    "id": "0017",
+    "filename": "32v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 35 - Verso",
+    "base_name": "35v",
+    "id": "0018",
+    "filename": "35v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 39 - Recto",
+    "base_name": "39r",
+    "id": "0019",
+    "filename": "39r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 40 - Verso",
+    "base_name": "40v_",
+    "id": "0020",
+    "filename": "40v_.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 44 - Recto",
+    "base_name": "44r",
+    "id": "0021",
+    "filename": "44r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 47 - Verso",
+    "base_name": "47v",
+    "id": "0022",
+    "filename": "47v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 52 - Recto",
+    "base_name": "52r",
+    "id": "0023",
+    "filename": "52r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 55 - Verso",
+    "base_name": "55v",
+    "id": "0024",
+    "filename": "55v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 58 - Recto",
+    "base_name": "58r",
+    "id": "0025",
+    "filename": "58r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 60 - Verso",
+    "base_name": "60v",
+    "id": "0026",
+    "filename": "60v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 62 - Verso",
+    "base_name": "62v",
+    "id": "0027",
+    "filename": "62v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 64 - Recto",
+    "base_name": "64r",
+    "id": "0028",
+    "filename": "64r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 66 - Recto",
+    "base_name": "66r",
+    "id": "0029",
+    "filename": "66r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 67 - Recto",
+    "base_name": "67r",
+    "id": "0030",
+    "filename": "67r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 68 - Recto",
+    "base_name": "68r",
+    "id": "0031",
+    "filename": "68r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 71 - Recto",
+    "base_name": "71r",
+    "id": "0032",
+    "filename": "71r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 76 - Recto",
+    "base_name": "76r",
+    "id": "0033",
+    "filename": "76r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 80 - Verso",
+    "base_name": "80v",
+    "id": "0034",
+    "filename": "80v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 85 - Verso",
+    "base_name": "85v",
+    "id": "0035",
+    "filename": "85v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 86 - Recto",
+    "base_name": "86r",
+    "id": "0036",
+    "filename": "86r..JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 87 - Recto",
+    "base_name": "87r",
+    "id": "0037",
+    "filename": "87r..JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 93 - Recto",
+    "base_name": "93r",
+    "id": "0038",
+    "filename": "93r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 104 - Verso",
+    "base_name": "104v",
+    "id": "0039",
+    "filename": "104v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 107 - Recto",
+    "base_name": "107r",
+    "id": "0040",
+    "filename": "107r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 109 - Verso",
+    "base_name": "109v",
+    "id": "0041",
+    "filename": "109v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 112 - Verso",
+    "base_name": "112v",
+    "id": "0042",
+    "filename": "112v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 115 - Verso",
+    "base_name": "115v",
+    "id": "0043",
+    "filename": "115v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 117 - Verso",
+    "base_name": "117v",
+    "id": "0044",
+    "filename": "117v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 121 - Recto",
+    "base_name": "121r",
+    "id": "0045",
+    "filename": "121r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 122 - Verso",
+    "base_name": "122v",
+    "id": "0046",
+    "filename": "122v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 124 - Verso",
+    "base_name": "124v",
+    "id": "0047",
+    "filename": "124v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 128 - Verso",
+    "base_name": "128v",
+    "id": "0048",
+    "filename": "128v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 132 - Verso",
+    "base_name": "132v",
+    "id": "0049",
+    "filename": "132v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 136 - Recto",
+    "base_name": "136r",
+    "id": "0050",
+    "filename": "136r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 138 - Recto",
+    "base_name": "138r",
+    "id": "0051",
+    "filename": "138r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 140 - Recto",
+    "base_name": "140r",
+    "id": "0052",
+    "filename": "140r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 141 - Verso",
+    "base_name": "141v",
+    "id": "0053",
+    "filename": "141v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 143 - Recto",
+    "base_name": "143r",
+    "id": "0054",
+    "filename": "143r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 144 - Recto",
+    "base_name": "144r",
+    "id": "0055",
+    "filename": "144r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 147 - Recto",
+    "base_name": "147r",
+    "id": "0056",
+    "filename": "147r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 149 - Verso",
+    "base_name": "149v",
+    "id": "0057",
+    "filename": "149v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 154 - Recto",
+    "base_name": "154r",
+    "id": "0058",
+    "filename": "154r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 157 - Verso",
+    "base_name": "157v",
+    "id": "0059",
+    "filename": "157v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 160 - Recto",
+    "base_name": "160r",
+    "id": "0060",
+    "filename": "160r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 163 - Verso",
+    "base_name": "163v",
+    "id": "0061",
+    "filename": "163v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 166 - Verso",
+    "base_name": "166v",
+    "id": "0062",
+    "filename": "166v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 169 - Verso",
+    "base_name": "169v",
+    "id": "0063",
+    "filename": "169v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 172 - Verso",
+    "base_name": "172v",
+    "id": "0064",
+    "filename": "172v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 176 - Verso",
+    "base_name": "176v",
+    "id": "0065",
+    "filename": "176v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 179 - Verso",
+    "base_name": "179v",
+    "id": "0066",
+    "filename": "179v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 182 - Recto",
+    "base_name": "182r",
+    "id": "0067",
+    "filename": "182r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 186 - Verso",
+    "base_name": "186v",
+    "id": "0068",
+    "filename": "186v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 188 - Verso",
+    "base_name": "188v",
+    "id": "0069",
+    "filename": "188v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 191 - Recto",
+    "base_name": "191r",
+    "id": "0070",
+    "filename": "191r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 193 - Recto",
+    "base_name": "193r",
+    "id": "0071",
+    "filename": "193r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 196 - Recto",
+    "base_name": "196r",
+    "id": "0072",
+    "filename": "196r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 198 - Recto",
+    "base_name": "198r",
+    "id": "0073",
+    "filename": "198r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 200 - Recto",
+    "base_name": "200r",
+    "id": "0074",
+    "filename": "200r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 203 - Recto",
+    "base_name": "203r",
+    "id": "0075",
+    "filename": "203r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 206 - Recto",
+    "base_name": "206r",
+    "id": "0076",
+    "filename": "206r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 211 - Verso",
+    "base_name": "211v",
+    "id": "0077",
+    "filename": "211v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 217 - Verso",
+    "base_name": "217v",
+    "id": "0078",
+    "filename": "217v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 223 - Verso",
+    "base_name": "223v",
+    "id": "0079",
+    "filename": "223v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 226 - Recto",
+    "base_name": "226r",
+    "id": "0080",
+    "filename": "226r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 232 - Recto",
+    "base_name": "232r",
+    "id": "0081",
+    "filename": "232r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 235 - Verso",
+    "base_name": "235v",
+    "id": "0082",
+    "filename": "235v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 238 - Recto",
+    "base_name": "238r",
+    "id": "0083",
+    "filename": "238r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 240 - Recto",
+    "base_name": "240r",
+    "id": "0084",
+    "filename": "240r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 242 - Verso",
+    "base_name": "242v",
+    "id": "0085",
+    "filename": "242v.JPG",
+    "kind": "incipit",
+    "page": "verso"
+  },
+  {
+    "title": "Page 245 - Recto",
+    "base_name": "245r",
+    "id": "0086",
+    "filename": "245r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 253 - Recto",
+    "base_name": "253r",
+    "id": "0087",
+    "filename": "253r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Page 257 - Recto",
+    "base_name": "257r",
+    "id": "0088",
+    "filename": "257r.JPG",
+    "kind": "incipit",
+    "page": "recto"
+  },
+  {
+    "title": "Cow horns watermark",
+    "base_name": "Cow horns watermark",
+    "id": "0089",
+    "filename": "wm-cow-horns.JPG",
+    "kind": "watermark",
+    "page": "watermark"
+  },
+  {
+    "title": "Cow head watermark",
+    "base_name": "Cow head watermark",
+    "id": "0090",
+    "filename": "wm-cow-head.JPG",
+    "kind": "watermark",
+    "page": "watermark"
+  },
+  {
+    "title": "Bottom head watermark",
+    "base_name": "Bottom head watermark",
+    "id": "0091",
+    "filename": "wm-bottom-head.JPG",
+    "kind": "watermark",
+    "page": "watermark"
+  },
+  {
+    "title": "Top head watermark",
+    "base_name": "Top head watermark",
+    "id": "0092",
+    "filename": "wm-top-head.JPG",
+    "kind": "watermark",
+    "page": "watermark"
+  },
+  {
+    "title": "Xo watermark",
+    "base_name": "Xo watermark",
+    "id": "0093",
+    "filename": "wm-xo.JPG",
+    "kind": "watermark",
+    "page": "watermark"
+  },
+  {
+    "title": "Diamonds watermark",
+    "base_name": "Diamonds watermark",
+    "id": "0094",
+    "filename": "wm-diamonds.JPG",
+    "kind": "watermark",
+    "page": "watermark"
+  }
+]

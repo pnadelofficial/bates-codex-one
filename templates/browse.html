@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+ 
+{% block title %}Browse Collection{% endblock %}
+{% block description %}Browse all items in the archive collection.{% endblock %}
+ 
+{% block extra_head %}
+<style>
+  /* ─── Filter Bar ─────────────────────────────────────────────── */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+ 
+  .filter-label {
+    font-family: var(--font-small);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+ 
+  .filter-btn {
+    font-family: var(--font-small);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border: 1px solid var(--rule);
+    background: none;
+    padding: 0.2rem 0.65rem;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .filter-btn:hover,
+  .filter-btn.active {
+    border-color: var(--rust);
+    color: var(--rust);
+    background: var(--parchment);
+  }
+ 
+  .item-count {
+    margin-left: auto;
+    font-family: var(--font-small);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+ 
+  /* ─── Item List ──────────────────────────────────────────────── */
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+ 
+  .item-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+    align-items: center;
+  }
+  .item-row:first-child { border-top: 1px solid var(--rule-light); }
+  .item-row:hover { background: var(--parchment); padding-left: 0.75rem; padding-right: 0.75rem; margin: 0 -0.75rem; }
+  .item-row:hover { text-decoration: none; }
+ 
+  .item-thumb {
+    width: 90px;
+    height: 68px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid var(--rule);
+    filter: sepia(15%);
+    flex-shrink: 0;
+  }
+ 
+  .item-thumb-placeholder {
+    width: 90px;
+    height: 68px;
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rule);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+ 
+  .item-meta { min-width: 0; }
+ 
+  .item-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .item-row:hover .item-title { color: var(--rust); }
+ 
+  .item-kind {
+    font-family: var(--font-small);
+    font-size: 0.63rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+ 
+  /* ─── Empty State ────────────────────────────────────────────── */
+  .empty-state {
+    padding: 3rem 0;
+    text-align: center;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+ 
+  @media (max-width: 500px) {
+    .item-row { grid-template-columns: 64px 1fr; gap: 1rem; }
+    .item-thumb, .item-thumb-placeholder { width: 64px; height: 48px; }
+  }
+</style>
+{% endblock %}
+ 
+{% block content %}
+<div class="page-header">
+  <h1>Browse Collection</h1>
+  <p class="subtitle">{{ items|length }} item{% if items|length != 1 %}s{% endif %} in the archive</p>
+</div>
+ 
+<!-- Filter bar (kinds) -->
+{% set kinds = items | map(attribute='kind') | unique | list %}
+{% if kinds %}
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" data-kind="all">All</button>
+  {% for kind in kinds | sort %}
+    <button class="filter-btn" data-kind="{{ kind }}">{{ kind }}</button>
+  {% endfor %}
+  <span class="item-count" id="visible-count">{{ items|length }} shown</span>
+</div>
+{% endif %}
+ 
+<!-- Item rows -->
+<div class="item-list" id="item-list">
+  {% for item in items %}
+  <a class="item-row"
+     href="/items/{{ item.id }}.html"
+     data-kind="{{ item.kind | default('') }}">
+ 
+    {% if item.filename %}
+      <img
+        class="item-thumb"
+        src="/static/images/{{ item.filename }}"
+        alt="{{ item.title }}"
+        loading="lazy">
+    {% else %}
+      <div class="item-thumb-placeholder">◻</div>
+    {% endif %}
+ 
+    <div class="item-meta">
+      <div class="item-title">{{ item.title }}</div>
+      {% if item.kind %}
+        <div class="item-kind">{{ item.kind }}</div>
+      {% endif %}
+    </div>
+ 
+  </a>
+  {% else %}
+  <div class="empty-state">No items in the collection yet.</div>
+  {% endfor %}
+</div>
+{% endblock %}
+ 
+{% block extra_scripts %}
+<script>
+  const btns = document.querySelectorAll('.filter-btn');
+  const rows = document.querySelectorAll('.item-row');
+  const countEl = document.getElementById('visible-count');
+ 
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const kind = btn.dataset.kind;
+ 
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+ 
+      let visible = 0;
+      rows.forEach(row => {
+        const match = kind === 'all' || row.dataset.kind === kind;
+        row.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+ 
+      if (countEl) countEl.textContent = `${visible} shown`;
+    });
+  });
+</script>
+{% endblock %}
