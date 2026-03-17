@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Collection — Image Archive</title>
+  <meta name="description" content="Browse all items in the archive collection.">
+
+  <!-- Google Fonts: Playfair Display (display) + IM Fell English (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── CSS Variables ─────────────────────────────────────────── */
+    :root {
+      --cream:       #f5f0e8;
+      --parchment:   #ede5d0;
+      --ink:         #1c1a16;
+      --ink-light:   #3d3a34;
+      --ink-faint:   #7a7468;
+      --rust:        #8b3a2a;
+      --rust-light:  #a84e3a;
+      --rule:        #c8bfa8;
+      --rule-light:  #ddd5c0;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'IM Fell English', Georgia, serif;
+      --font-small:   'IM Fell English SC', Georgia, serif;
+
+      --max-width: 1100px;
+      --gap: 2rem;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+
+      /* Subtle paper grain texture via SVG noise */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Typography ────────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    a {
+      color: var(--rust);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--rust-light); text-decoration: underline; }
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ─── Layout Shell ──────────────────────────────────────────── */
+    .site-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--gap);
+      width: 100%;
+    }
+
+    main {
+      flex: 1;
+      padding: 3rem 0 5rem;
+    }
+
+    /* ─── Masthead ──────────────────────────────────────────────── */
+    .site-masthead {
+      border-bottom: 2px solid var(--ink);
+      padding: 2.5rem 0 0;
+      position: relative;
+    }
+
+    .masthead-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.25rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .masthead-eyebrow {
+      font-family: var(--font-small);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+    }
+
+    .site-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .site-title a { color: inherit; }
+    .site-title a:hover { text-decoration: none; color: var(--rust); }
+
+    .masthead-rule {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 480px;
+      margin: 0.5rem auto 0;
+    }
+    .masthead-rule::before,
+    .masthead-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .masthead-rule-ornament {
+      color: var(--rust);
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    /* ─── Navigation ────────────────────────────────────────────── */
+    .site-nav {
+      border-top: 1px solid var(--rule-light);
+      margin-top: 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .nav-inner a {
+      font-family: var(--font-small);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 0.75rem 1.5rem;
+      border-right: 1px solid var(--rule-light);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-inner a:first-child { border-left: 1px solid var(--rule-light); }
+    .nav-inner a:hover {
+      background: var(--parchment);
+      color: var(--rust);
+      text-decoration: none;
+    }
+    .nav-inner a.active {
+      background: var(--parchment);
+      color: var(--rust);
+    }
+
+    /* ─── Page Header (used in child templates) ─────────────────── */
+    .page-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .page-header .subtitle {
+      font-style: italic;
+      color: var(--ink-faint);
+      font-size: 0.95rem;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 2px solid var(--ink);
+      padding: 1.75rem 0;
+      font-family: var(--font-small);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-faint);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ─── Utility Classes ───────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-small);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      border: 1px solid var(--rule);
+      padding: 0.15rem 0.5rem;
+      border-radius: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tag:hover {
+      border-color: var(--rust);
+      color: var(--rust);
+      text-decoration: none;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 2rem 0;
+    }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      :root { --gap: 1.25rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .nav-inner a { padding: 0.65rem 1rem; font-size: 0.65rem; }
+    }
+  </style>
+
+  
+<style>
+  /* ─── Filter Bar ─────────────────────────────────────────────── */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+ 
+  .filter-label {
+    font-family: var(--font-small);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+ 
+  .filter-btn {
+    font-family: var(--font-small);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border: 1px solid var(--rule);
+    background: none;
+    padding: 0.2rem 0.65rem;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .filter-btn:hover,
+  .filter-btn.active {
+    border-color: var(--rust);
+    color: var(--rust);
+    background: var(--parchment);
+  }
+ 
+  .item-count {
+    margin-left: auto;
+    font-family: var(--font-small);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+ 
+  /* ─── Item List ──────────────────────────────────────────────── */
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+ 
+  .item-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+    align-items: center;
+  }
+  .item-row:first-child { border-top: 1px solid var(--rule-light); }
+  .item-row:hover { background: var(--parchment); padding-left: 0.75rem; padding-right: 0.75rem; margin: 0 -0.75rem; }
+  .item-row:hover { text-decoration: none; }
+ 
+  .item-thumb {
+    width: 90px;
+    height: 68px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid var(--rule);
+    filter: sepia(15%);
+    flex-shrink: 0;
+  }
+ 
+  .item-thumb-placeholder {
+    width: 90px;
+    height: 68px;
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rule);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+ 
+  .item-meta { min-width: 0; }
+ 
+  .item-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .item-row:hover .item-title { color: var(--rust); }
+ 
+  .item-kind {
+    font-family: var(--font-small);
+    font-size: 0.63rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+ 
+  /* ─── Empty State ────────────────────────────────────────────── */
+  .empty-state {
+    padding: 3rem 0;
+    text-align: center;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+ 
+  @media (max-width: 500px) {
+    .item-row { grid-template-columns: 64px 1fr; gap: 1rem; }
+    .item-thumb, .item-thumb-placeholder { width: 64px; height: 48px; }
+  }
+</style>
+
+</head>
+
+<body>
+
+  <!-- ── Masthead ──────────────────────────────────────────────── -->
+  <header class="site-masthead">
+    <div class="site-wrapper">
+      <div class="masthead-inner">
+        <span class="masthead-eyebrow">A Digital Collection</span>
+        <div class="site-title"><a href="/index.html">Bates Codex One</a></div>
+        <!-- <div class="masthead-rule">
+          <span class="masthead-rule-ornament">❧</span>
+        </div> -->
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <div class="nav-inner">
+          <a href="/index.html"
+            >
+            Home
+          </a>
+          <a href="/browse.html"
+            class="active">
+            Browse Collection
+          </a>
+          <a href="/about.html"
+            >
+            About
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Main Content ──────────────────────────────────────────── -->
+  <main>
+    <div class="site-wrapper">
+      
+<div class="page-header">
+  <h1>Browse Collection</h1>
+  <p class="subtitle">95 items in the archive</p>
+</div>
+ 
+<!-- Filter bar (kinds) -->
+
+
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" data-kind="all">All</button>
+  
+    <button class="filter-btn" data-kind="incipit">incipit</button>
+  
+    <button class="filter-btn" data-kind="watermark">watermark</button>
+  
+  <span class="item-count" id="visible-count">95 shown</span>
+</div>
+
+ 
+<!-- Item rows -->
+<div class="item-list" id="item-list">
+  
+  <a class="item-row"
+     href="/items/0000.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/1r.JPG"
+        alt="Page 1 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 1 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0001.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/4v.JPG"
+        alt="Page 4 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 4 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0002.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/8v.JPG"
+        alt="Page 8 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 8 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0003.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/9v.JPG"
+        alt="Page 9 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 9 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0004.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/11r.JPG"
+        alt="Page 11 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 11 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0005.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/12v.JPG"
+        alt="Page 12 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 12 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0006.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/13v.JPG"
+        alt="Page 13 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 13 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0007.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/15r.JPG"
+        alt="Page 15 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 15 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0008.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/16v.JPG"
+        alt="Page 16 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 16 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0009.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/18r.JPG"
+        alt="Page 18 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 18 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0010.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/19v.JPG"
+        alt="Page 19 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 19 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0011.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/19r.JPG"
+        alt="Page 19 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 19 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0012.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/20v..JPG"
+        alt="Page 20 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 20 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0013.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/23r.JPG"
+        alt="Page 23 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 23 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0014.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/25v.JPG"
+        alt="Page 25 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 25 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0015.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/28r.JPG"
+        alt="Page 28 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 28 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0016.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/30r.JPG"
+        alt="Page 30 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 30 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0017.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/32v.JPG"
+        alt="Page 32 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 32 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0018.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/35v.JPG"
+        alt="Page 35 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 35 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0019.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/39r.JPG"
+        alt="Page 39 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 39 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0020.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/40v_.JPG"
+        alt="Page 40 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 40 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0021.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/44r.JPG"
+        alt="Page 44 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 44 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0022.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/47v.JPG"
+        alt="Page 47 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 47 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0023.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/52r.JPG"
+        alt="Page 52 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 52 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0024.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/55v.JPG"
+        alt="Page 55 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 55 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0025.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/58r.JPG"
+        alt="Page 58 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 58 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0026.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/60v.JPG"
+        alt="Page 60 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 60 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0027.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/62v.JPG"
+        alt="Page 62 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 62 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0028.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/64r.JPG"
+        alt="Page 64 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 64 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0029.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/66r.JPG"
+        alt="Page 66 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 66 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0030.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/67r.JPG"
+        alt="Page 67 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 67 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0031.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/68r.JPG"
+        alt="Page 68 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 68 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0032.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/71r.JPG"
+        alt="Page 71 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 71 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0033.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/76r.JPG"
+        alt="Page 76 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 76 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0034.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/80v.JPG"
+        alt="Page 80 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 80 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0035.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/85v.JPG"
+        alt="Page 85 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 85 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0036.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/86r..JPG"
+        alt="Page 86 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 86 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0037.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/87r..JPG"
+        alt="Page 87 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 87 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0038.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/93r.JPG"
+        alt="Page 93 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 93 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0039.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/104v.JPG"
+        alt="Page 104 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 104 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0040.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/107r.JPG"
+        alt="Page 107 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 107 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0041.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/109v.JPG"
+        alt="Page 109 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 109 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0042.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/112v.JPG"
+        alt="Page 112 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 112 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0043.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/115v.JPG"
+        alt="Page 115 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 115 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0044.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/117v.JPG"
+        alt="Page 117 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 117 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0045.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/121r.JPG"
+        alt="Page 121 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 121 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0046.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/122v.JPG"
+        alt="Page 122 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 122 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0047.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/124v.JPG"
+        alt="Page 124 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 124 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0048.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/128v.JPG"
+        alt="Page 128 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 128 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0049.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/132v.JPG"
+        alt="Page 132 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 132 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0050.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/136r.JPG"
+        alt="Page 136 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 136 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0051.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/138r.JPG"
+        alt="Page 138 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 138 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0052.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/140r.JPG"
+        alt="Page 140 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 140 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0053.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/141v.JPG"
+        alt="Page 141 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 141 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0054.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/143r.JPG"
+        alt="Page 143 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 143 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0055.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/144r.JPG"
+        alt="Page 144 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 144 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0056.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/147r.JPG"
+        alt="Page 147 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 147 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0057.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/149v.JPG"
+        alt="Page 149 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 149 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0058.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/154r.JPG"
+        alt="Page 154 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 154 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0059.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/157v.JPG"
+        alt="Page 157 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 157 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0060.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/160r.JPG"
+        alt="Page 160 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 160 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0061.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/163v.JPG"
+        alt="Page 163 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 163 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0062.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/166v.JPG"
+        alt="Page 166 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 166 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0063.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/169v.JPG"
+        alt="Page 169 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 169 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0064.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/172v.JPG"
+        alt="Page 172 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 172 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0065.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/176v.JPG"
+        alt="Page 176 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 176 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0066.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/179v.JPG"
+        alt="Page 179 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 179 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0067.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/182r.JPG"
+        alt="Page 182 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 182 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0068.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/186v.JPG"
+        alt="Page 186 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 186 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0069.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/188v.JPG"
+        alt="Page 188 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 188 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0070.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/191r.JPG"
+        alt="Page 191 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 191 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0071.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/193r.JPG"
+        alt="Page 193 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 193 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0072.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/196r.JPG"
+        alt="Page 196 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 196 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0073.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/198r.JPG"
+        alt="Page 198 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 198 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0074.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/200r.JPG"
+        alt="Page 200 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 200 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0075.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/203r.JPG"
+        alt="Page 203 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 203 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0076.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/206r.JPG"
+        alt="Page 206 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 206 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0077.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/211v.JPG"
+        alt="Page 211 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 211 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0078.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/217v.JPG"
+        alt="Page 217 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 217 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0079.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/223v.JPG"
+        alt="Page 223 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 223 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0080.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/226r.JPG"
+        alt="Page 226 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 226 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0081.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/232r.JPG"
+        alt="Page 232 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 232 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0082.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/235v.JPG"
+        alt="Page 235 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 235 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0083.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/238r.JPG"
+        alt="Page 238 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 238 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0084.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/240r.JPG"
+        alt="Page 240 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 240 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0085.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/242v.JPG"
+        alt="Page 242 - Verso"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 242 - Verso</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0086.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/245r.JPG"
+        alt="Page 245 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 245 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0087.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/253r.JPG"
+        alt="Page 253 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 253 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0088.html"
+     data-kind="incipit">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/257r.JPG"
+        alt="Page 257 - Recto"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Page 257 - Recto</div>
+      
+        <div class="item-kind">incipit</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0089.html"
+     data-kind="watermark">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/wm-cow-horns.JPG"
+        alt="Cow horns watermark"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Cow horns watermark</div>
+      
+        <div class="item-kind">watermark</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0090.html"
+     data-kind="watermark">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/wm-cow-head.JPG"
+        alt="Cow head watermark"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Cow head watermark</div>
+      
+        <div class="item-kind">watermark</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0091.html"
+     data-kind="watermark">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/wm-bottom-head.JPG"
+        alt="Bottom head watermark"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Bottom head watermark</div>
+      
+        <div class="item-kind">watermark</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0092.html"
+     data-kind="watermark">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/wm-top-head.JPG"
+        alt="Top head watermark"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Top head watermark</div>
+      
+        <div class="item-kind">watermark</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0093.html"
+     data-kind="watermark">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/wm-xo.JPG"
+        alt="Xo watermark"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Xo watermark</div>
+      
+        <div class="item-kind">watermark</div>
+      
+    </div>
+ 
+  </a>
+  
+  <a class="item-row"
+     href="/items/0094.html"
+     data-kind="watermark">
+ 
+    
+      <img
+        class="item-thumb"
+        src="/static/images/wm-diamonds.JPG"
+        alt="Diamonds watermark"
+        loading="lazy">
+    
+ 
+    <div class="item-meta">
+      <div class="item-title">Diamonds watermark</div>
+      
+        <div class="item-kind">watermark</div>
+      
+    </div>
+ 
+  </a>
+  
+</div>
+
+    </div>
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="site-wrapper">
+      <div class="footer-inner">
+        <span>Bates Codex One</span>
+        <span>A digital collection of images and data associated with the codicological and paelographical analysis of Bates Codex One.</span>
+        <span>&copy; 2019, 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  
+<script>
+  const btns = document.querySelectorAll('.filter-btn');
+  const rows = document.querySelectorAll('.item-row');
+  const countEl = document.getElementById('visible-count');
+ 
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const kind = btn.dataset.kind;
+ 
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+ 
+      let visible = 0;
+      rows.forEach(row => {
+        const match = kind === 'all' || row.dataset.kind === kind;
+        row.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+ 
+      if (countEl) countEl.textContent = `${visible} shown`;
+    });
+  });
+</script>
+
+</body>
+</html>

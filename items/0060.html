@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page 160 - Recto — Image Archive</title>
+  <meta name="description" content="Page 160 - Recto — incipit">
+
+  <!-- Google Fonts: Playfair Display (display) + IM Fell English (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── CSS Variables ─────────────────────────────────────────── */
+    :root {
+      --cream:       #f5f0e8;
+      --parchment:   #ede5d0;
+      --ink:         #1c1a16;
+      --ink-light:   #3d3a34;
+      --ink-faint:   #7a7468;
+      --rust:        #8b3a2a;
+      --rust-light:  #a84e3a;
+      --rule:        #c8bfa8;
+      --rule-light:  #ddd5c0;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'IM Fell English', Georgia, serif;
+      --font-small:   'IM Fell English SC', Georgia, serif;
+
+      --max-width: 1100px;
+      --gap: 2rem;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+
+      /* Subtle paper grain texture via SVG noise */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Typography ────────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    a {
+      color: var(--rust);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--rust-light); text-decoration: underline; }
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ─── Layout Shell ──────────────────────────────────────────── */
+    .site-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--gap);
+      width: 100%;
+    }
+
+    main {
+      flex: 1;
+      padding: 3rem 0 5rem;
+    }
+
+    /* ─── Masthead ──────────────────────────────────────────────── */
+    .site-masthead {
+      border-bottom: 2px solid var(--ink);
+      padding: 2.5rem 0 0;
+      position: relative;
+    }
+
+    .masthead-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.25rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .masthead-eyebrow {
+      font-family: var(--font-small);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+    }
+
+    .site-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .site-title a { color: inherit; }
+    .site-title a:hover { text-decoration: none; color: var(--rust); }
+
+    .masthead-rule {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 480px;
+      margin: 0.5rem auto 0;
+    }
+    .masthead-rule::before,
+    .masthead-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .masthead-rule-ornament {
+      color: var(--rust);
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    /* ─── Navigation ────────────────────────────────────────────── */
+    .site-nav {
+      border-top: 1px solid var(--rule-light);
+      margin-top: 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .nav-inner a {
+      font-family: var(--font-small);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 0.75rem 1.5rem;
+      border-right: 1px solid var(--rule-light);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-inner a:first-child { border-left: 1px solid var(--rule-light); }
+    .nav-inner a:hover {
+      background: var(--parchment);
+      color: var(--rust);
+      text-decoration: none;
+    }
+    .nav-inner a.active {
+      background: var(--parchment);
+      color: var(--rust);
+    }
+
+    /* ─── Page Header (used in child templates) ─────────────────── */
+    .page-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .page-header .subtitle {
+      font-style: italic;
+      color: var(--ink-faint);
+      font-size: 0.95rem;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 2px solid var(--ink);
+      padding: 1.75rem 0;
+      font-family: var(--font-small);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-faint);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ─── Utility Classes ───────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-small);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      border: 1px solid var(--rule);
+      padding: 0.15rem 0.5rem;
+      border-radius: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tag:hover {
+      border-color: var(--rust);
+      color: var(--rust);
+      text-decoration: none;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 2rem 0;
+    }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      :root { --gap: 1.25rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .nav-inner a { padding: 0.65rem 1rem; font-size: 0.65rem; }
+    }
+  </style>
+
+  
+<style>
+  /* ─── Breadcrumb ─────────────────────────────────────────────── */
+  .breadcrumb {
+    font-family: var(--font-small);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .breadcrumb a { color: var(--ink-faint); }
+  .breadcrumb a:hover { color: var(--rust); text-decoration: none; }
+  .breadcrumb-sep { color: var(--rule); }
+ 
+  /* ─── Item Image ─────────────────────────────────────────────── */
+  .item-image-wrap {
+    width: 100%;
+    margin-bottom: 2.25rem;
+    border: 1px solid var(--rule);
+    background: var(--parchment);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+ 
+  .item-image {
+    width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    display: block;
+    filter: sepia(10%);
+    cursor: zoom-in;
+    transition: filter 0.2s;
+  }
+  .item-image:hover { filter: sepia(0%); }
+ 
+  /* ─── Item Detail Layout ─────────────────────────────────────── */
+  .item-detail {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 3rem;
+    align-items: start;
+  }
+ 
+  @media (max-width: 700px) {
+    .item-detail { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+ 
+  /* ─── Item Body (left) ───────────────────────────────────────── */
+  .item-title-heading {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 1.5rem;
+  }
+ 
+  .item-description {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink-light);
+  }
+ 
+  /* ─── Item Sidebar (right) ───────────────────────────────────── */
+  .item-sidebar {
+    border: 1px solid var(--rule);
+    padding: 1.25rem;
+    background: var(--parchment);
+  }
+ 
+  .sidebar-heading {
+    font-family: var(--font-small);
+    font-size: 0.63rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+ 
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+ 
+  .meta-table tr + tr td { padding-top: 0.6rem; }
+ 
+  .meta-label {
+    font-family: var(--font-small);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    vertical-align: top;
+    padding-right: 1rem;
+    white-space: nowrap;
+    width: 1%;
+  }
+ 
+  .meta-value {
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+ 
+  /* ─── Lightbox ───────────────────────────────────────────────── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 18, 14, 0.92);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+ 
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+ 
+  .lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    background: none;
+    border: none;
+    transition: color 0.15s;
+  }
+  .lightbox-close:hover { color: #fff; }
+ 
+  /* ─── Prev / Next Nav ────────────────────────────────────────── */
+  .item-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-small);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+ 
+  .item-nav a { color: var(--ink-faint); }
+  .item-nav a:hover { color: var(--rust); text-decoration: none; }
+  .item-nav .nav-placeholder { visibility: hidden; }
+</style>
+
+</head>
+
+<body>
+
+  <!-- ── Masthead ──────────────────────────────────────────────── -->
+  <header class="site-masthead">
+    <div class="site-wrapper">
+      <div class="masthead-inner">
+        <span class="masthead-eyebrow">A Digital Collection</span>
+        <div class="site-title"><a href="/index.html">Bates Codex One</a></div>
+        <!-- <div class="masthead-rule">
+          <span class="masthead-rule-ornament">❧</span>
+        </div> -->
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <div class="nav-inner">
+          <a href="/index.html"
+            >
+            Home
+          </a>
+          <a href="/browse.html"
+            class="active">
+            Browse Collection
+          </a>
+          <a href="/about.html"
+            >
+            About
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Main Content ──────────────────────────────────────────── -->
+  <main>
+    <div class="site-wrapper">
+      
+ 
+<!-- Breadcrumb -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/index.html">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="/browse.html">Collection</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>Page 160 - Recto</span>
+</nav>
+ 
+<!-- Image -->
+
+<div class="item-image-wrap">
+  <img
+    class="item-image"
+    src="/static/images/160r.JPG"
+    alt="Page 160 - Recto"
+    id="main-image"
+    title="Click to enlarge">
+</div>
+
+ 
+<!-- Detail: title + description (left) and metadata sidebar (right) -->
+<div class="item-detail">
+  <div class="item-body">
+    <h1 class="item-title-heading">Page 160 - Recto</h1>
+    
+  </div>
+ 
+  <aside class="item-sidebar">
+    <div class="sidebar-heading">Record</div>
+    <table class="meta-table">
+      
+      <tr>
+        <td class="meta-label">ID</td>
+        <td class="meta-value">0060</td>
+      </tr>
+      
+      
+      <tr>
+        <td class="meta-label">Kind</td>
+        <td class="meta-value">incipit</td>
+      </tr>
+      
+      
+      <tr>
+        <td class="meta-label">File</td>
+        <td class="meta-value" style="word-break: break-all; font-size: 0.8rem;">160r.JPG</td>
+      </tr>
+      
+    </table>
+  </aside>
+</div>
+ 
+<!-- Prev / Next -->
+<div class="item-nav">
+  
+    <a href="/items/0059.html">← Page 157 - Verso</a>
+  
+ 
+  
+    <a href="/items/0061.html">Page 163 - Verso →</a>
+  
+</div>
+ 
+<!-- Lightbox overlay -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image enlarged">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+  <img src="" alt="Page 160 - Recto" id="lightbox-img">
+</div>
+ 
+
+    </div>
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="site-wrapper">
+      <div class="footer-inner">
+        <span>Bates Codex One</span>
+        <span>A digital collection of images and data associated with the codicological and paelographical analysis of Bates Codex One.</span>
+        <span>&copy; 2019, 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  
+<script>
+  const mainImg   = document.getElementById('main-image');
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lightbox-img');
+  const lbClose   = document.getElementById('lightbox-close');
+ 
+  if (mainImg) {
+    mainImg.addEventListener('click', () => {
+      lbImg.src = mainImg.src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+ 
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+ 
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  lbClose.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>
